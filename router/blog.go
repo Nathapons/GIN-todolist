@@ -11,4 +11,6 @@ func SetUpBlogRouter(app *gin.Engine) {
 
 	router.GET("/blog", controllers.GetBlogs)
 	router.POST("/blog", controllers.CreateBlogs)
+	router.PUT("/blog/:id", controllers.UpdateBlogs)
+	router.DELETE("blog/:id", controllers.DeletBlogs)
 }

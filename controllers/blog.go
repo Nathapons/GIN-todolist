@@ -1,7 +1,11 @@
 package controllers
 
 import (
+	"fmt"
+	"main/config"
+	"main/models"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,31 +15,53 @@ import (
 // @Tags			Blog
 // @Router			/blog [get]
 func GetBlogs(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "ok"})
+	var blogs []models.Blog
+	config.GetDB().Find(&blogs)
+	c.JSON(http.StatusOK, gin.H{"result": blogs})
 }
 
-
-// @Summary			Get Blogs.
+// @Summary			Create Blogs.
 // @Description		Return list of blog.
 // @Tags			Blog
+// @Param request body forms.Blog true "Request body for creating a resource"
 // @Router			/blog [post]
 func CreateBlogs(c *gin.Context) {
-	c.JSON(http.StatusCreated, gin.H{"message": "ok"})
+	var blog models.Blog
+	var err error
+
+	err = c.ShouldBindJSON(&blog)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	if err = config.GetDB().Create(&blog).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, gin.H{"result": blog})
 }
 
-
-// @Summary			Get Blogs.
+// @Summary			Update Blogs.
 // @Description		Return list of blog.
+// @ID create-resource
 // @Tags			Blog
-// @Router			/blog/:id [put]
+// @Param id path int true "ID of models.Blog"
+// @Param request body forms.Blog true "Request body for update a resource"
+// @Router			/blog/{id} [put]
 func UpdateBlogs(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var blog models.Blog
+
+	config.GetDB().First(&blog, id)
+	fmt.Println(blog)
 	c.JSON(http.StatusCreated, gin.H{"message": "ok"})
 }
 
-// @Summary			Get Blogs.
+// @Summary			Delete Blogs.
 // @Description		Return list of blog.
 // @Tags			Blog
-// @Router			/blog/:id [delete]
+// @Router			/blog/{id} [delete]
 func DeletBlogs(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "ok"})
 }

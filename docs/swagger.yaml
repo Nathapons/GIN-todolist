@@ -1,5 +1,14 @@
 basePath: /api/v1
-host: localhost:8000
+definitions:
+  forms.Blog:
+    properties:
+      author:
+        default: admin
+        type: string
+      title:
+        type: string
+    type: object
+host: localhost:7000
 info:
   contact: {}
   description: Blog todolist API in Go using GIN framework
@@ -15,8 +24,41 @@ paths:
       - Blog
     post:
       description: Return list of blog.
+      parameters:
+      - description: Request body for creating a resource
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/forms.Blog'
       responses: {}
-      summary: Get Blogs.
+      summary: Create Blogs.
+      tags:
+      - Blog
+  /blog/{id}:
+    delete:
+      description: Return list of blog.
+      responses: {}
+      summary: Delete Blogs.
+      tags:
+      - Blog
+    put:
+      description: Return list of blog.
+      operationId: create-resource
+      parameters:
+      - description: ID of models.Blog
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Request body for update a resource
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/forms.Blog'
+      responses: {}
+      summary: Update Blogs.
       tags:
       - Blog
 swagger: "2.0"

@@ -1,6 +1,6 @@
 # GIN project: todo list
 
-Remark: Understand GIN and GORM basic before read this library
+Remark: Understand GIN and GORM basic before read this repro
 
 
 ## Authors

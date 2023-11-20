@@ -25,7 +25,7 @@ const docTemplate = `{
                 "responses": {}
             },
             "post": {
-                "description": "Return list of blog.",
+                "description": "Return blog data.",
                 "tags": [
                     "Blog"
                 ],
@@ -46,12 +46,11 @@ const docTemplate = `{
         },
         "/blog/{id}": {
             "put": {
-                "description": "Return list of blog.",
+                "description": "Return new blog after update data.",
                 "tags": [
                     "Blog"
                 ],
                 "summary": "Update Blogs.",
-                "operationId": "create-resource",
                 "parameters": [
                     {
                         "type": "integer",
@@ -73,11 +72,20 @@ const docTemplate = `{
                 "responses": {}
             },
             "delete": {
-                "description": "Return list of blog.",
+                "description": "Return no context status.",
                 "tags": [
                     "Blog"
                 ],
                 "summary": "Delete Blogs.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID of models.Blog",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {}
             }
         }
@@ -101,13 +109,15 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:7000",
+	Host:             "localhost:8000",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Blog todolist API",
-	Description:      "Blog todolist API in Go using GIN framework",
+	Title:            "Blog Service API",
+	Description:      "Blog Service API in Go using GIN framework",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
+	LeftDelim:        "{{",
+	RightDelim:       "}}",
 }
 
 func init() {

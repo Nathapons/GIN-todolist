@@ -21,7 +21,7 @@ func GetBlogs(c *gin.Context) {
 }
 
 // @Summary			Create Blogs.
-// @Description		Return list of blog.
+// @Description		Return blog data.
 // @Tags			Blog
 // @Param request body forms.Blog true "Request body for creating a resource"
 // @Router			/blog [post]
@@ -43,25 +43,45 @@ func CreateBlogs(c *gin.Context) {
 }
 
 // @Summary			Update Blogs.
-// @Description		Return list of blog.
-// @ID create-resource
+// @Description		Return new blog after update data.
 // @Tags			Blog
 // @Param id path int true "ID of models.Blog"
 // @Param request body forms.Blog true "Request body for update a resource"
 // @Router			/blog/{id} [put]
 func UpdateBlogs(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	var blog models.Blog
+	var data, blog models.Blog
 
-	config.GetDB().First(&blog, id)
-	fmt.Println(blog)
-	c.JSON(http.StatusCreated, gin.H{"message": "ok"})
+	r := config.GetDB().First(&blog, id)
+	if r.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": r.Error.Error()})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	blog.Title = data.Title
+	blog.Author = data.Author
+	config.GetDB().Save(&blog)
+
+	c.JSON(http.StatusCreated, gin.H{"result": blog})
 }
 
 // @Summary			Delete Blogs.
-// @Description		Return list of blog.
+// @Description		Return no context status.
 // @Tags			Blog
+// @Param id path int true "ID of models.Blog"
 // @Router			/blog/{id} [delete]
 func DeletBlogs(c *gin.Context) {
-	c.JSON(http.StatusCreated, gin.H{"message": "ok"})
+	id, _ := strconv.Atoi(c.Param("id"))
+	var blog models.Blog
+
+	if err := config.GetDB().First(&blog, id).Error; err != nil {
+		fmt.Println(err)
+	}
+
+	c.Status(http.StatusNoContent)
 }

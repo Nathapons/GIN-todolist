@@ -8,11 +8,11 @@ definitions:
       title:
         type: string
     type: object
-host: localhost:7000
+host: localhost:8000
 info:
   contact: {}
-  description: Blog todolist API in Go using GIN framework
-  title: Blog todolist API
+  description: Blog Service API in Go using GIN framework
+  title: Blog Service API
   version: "1.0"
 paths:
   /blog:
@@ -23,7 +23,7 @@ paths:
       tags:
       - Blog
     post:
-      description: Return list of blog.
+      description: Return blog data.
       parameters:
       - description: Request body for creating a resource
         in: body
@@ -37,14 +37,19 @@ paths:
       - Blog
   /blog/{id}:
     delete:
-      description: Return list of blog.
+      description: Return no context status.
+      parameters:
+      - description: ID of models.Blog
+        in: path
+        name: id
+        required: true
+        type: integer
       responses: {}
       summary: Delete Blogs.
       tags:
       - Blog
     put:
-      description: Return list of blog.
-      operationId: create-resource
+      description: Return new blog after update data.
       parameters:
       - description: ID of models.Blog
         in: path

@@ -1,12 +1,12 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Blog todolist API in Go using GIN framework",
-        "title": "Blog todolist API",
+        "description": "Blog Service API in Go using GIN framework",
+        "title": "Blog Service API",
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:7000",
+    "host": "localhost:8000",
     "basePath": "/api/v1",
     "paths": {
         "/blog": {
@@ -19,7 +19,7 @@
                 "responses": {}
             },
             "post": {
-                "description": "Return list of blog.",
+                "description": "Return blog data.",
                 "tags": [
                     "Blog"
                 ],
@@ -40,12 +40,11 @@
         },
         "/blog/{id}": {
             "put": {
-                "description": "Return list of blog.",
+                "description": "Return new blog after update data.",
                 "tags": [
                     "Blog"
                 ],
                 "summary": "Update Blogs.",
-                "operationId": "create-resource",
                 "parameters": [
                     {
                         "type": "integer",
@@ -67,11 +66,20 @@
                 "responses": {}
             },
             "delete": {
-                "description": "Return list of blog.",
+                "description": "Return no context status.",
                 "tags": [
                     "Blog"
                 ],
                 "summary": "Delete Blogs.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID of models.Blog",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {}
             }
         }

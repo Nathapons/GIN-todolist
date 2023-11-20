@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"main/config"
 	"main/router"
 
@@ -10,15 +11,15 @@ import (
 	_ "main/docs"
 )
 
-// @title Blog todolist API
+// @title Blog Service API
 // @version 1.0
-// @description Blog todolist API in Go using GIN framework
-// @host 	localhost:7000
+// @description Blog Service API in Go using GIN framework
+// @host 	localhost:8000
 // @BasePath /api/v1
 func main() {
 	envMap, err := godotenv.Read()
 	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("Error : %s", err))
 	}
 
 	DB_HOST := envMap["DB_HOST"]
@@ -28,7 +29,7 @@ func main() {
 	DB_PASSWORD := envMap["DB_PASSWORD"]
 	PORT := envMap["PORT"]
 
-	app := gin.New()
+	app := gin.Default()
 
 	config.SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
 	router.SetUpRouter(app)

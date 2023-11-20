@@ -1,6 +1,7 @@
 package main
 
 import (
+	"main/config"
 	"main/router"
 
 	"github.com/gin-gonic/gin"
@@ -20,10 +21,16 @@ func main() {
 		panic(err)
 	}
 
+	DB_HOST := envMap["DB_HOST"]
+	DB_NAME := envMap["DB_NAME"]
+	DB_PORT := envMap["DB_PORT"]
+	DB_USER := envMap["DB_USER"]
+	DB_PASSWORD := envMap["DB_PASSWORD"]
 	PORT := envMap["PORT"]
 
 	app := gin.New()
 
+	config.SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
 	router.SetUpRouter(app)
 
 	app.Run(":" + PORT)

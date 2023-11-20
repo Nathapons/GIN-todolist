@@ -8,5 +8,24 @@
     },
     "host": "localhost:8000",
     "basePath": "/api/v1",
-    "paths": {}
+    "paths": {
+        "/blog": {
+            "get": {
+                "description": "Return list of blog.",
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Get Blogs.",
+                "responses": {}
+            },
+            "post": {
+                "description": "Return list of blog.",
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Get Blogs.",
+                "responses": {}
+            }
+        }
+    }
 }

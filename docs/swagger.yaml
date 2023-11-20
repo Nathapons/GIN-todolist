@@ -5,5 +5,18 @@ info:
   description: Blog todolist API in Go using GIN framework
   title: Blog todolist API
   version: "1.0"
-paths: {}
+paths:
+  /blog:
+    get:
+      description: Return list of blog.
+      responses: {}
+      summary: Get Blogs.
+      tags:
+      - Blog
+    post:
+      description: Return list of blog.
+      responses: {}
+      summary: Get Blogs.
+      tags:
+      - Blog
 swagger: "2.0"

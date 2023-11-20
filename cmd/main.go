@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"main/config"
 	"main/router"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -21,6 +22,8 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("Error : %s", err))
 	}
+
+	os.Mkdir("upload", os.ModePerm)
 
 	DB_HOST := envMap["DB_HOST"]
 	DB_NAME := envMap["DB_NAME"]

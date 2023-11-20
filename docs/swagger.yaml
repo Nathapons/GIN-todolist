@@ -1,13 +1,4 @@
 basePath: /api/v1
-definitions:
-  forms.Blog:
-    properties:
-      author:
-        default: admin
-        type: string
-      title:
-        type: string
-    type: object
 host: localhost:7000
 info:
   contact: {}
@@ -25,12 +16,21 @@ paths:
     post:
       description: Return blog data.
       parameters:
-      - description: Request body for creating a resource
-        in: body
-        name: request
+      - description: File to upload
+        in: formData
+        name: file
         required: true
-        schema:
-          $ref: '#/definitions/forms.Blog'
+        type: file
+      - description: Title data
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Author data
+        in: formData
+        name: author
+        required: true
+        type: string
       responses: {}
       summary: Create Blogs.
       tags:
@@ -56,12 +56,21 @@ paths:
         name: id
         required: true
         type: integer
-      - description: Request body for update a resource
-        in: body
-        name: request
+      - description: File
+        in: formData
+        name: file
         required: true
-        schema:
-          $ref: '#/definitions/forms.Blog'
+        type: file
+      - description: Title
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Author
+        in: formData
+        name: author
+        required: true
+        type: string
       responses: {}
       summary: Update Blogs.
       tags:

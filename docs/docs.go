@@ -32,13 +32,25 @@ const docTemplate = `{
                 "summary": "Create Blogs.",
                 "parameters": [
                     {
-                        "description": "Request body for creating a resource",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/forms.Blog"
-                        }
+                        "type": "file",
+                        "description": "File to upload",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Title data",
+                        "name": "title",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Author data",
+                        "name": "author",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {}
@@ -60,13 +72,25 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Request body for update a resource",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/forms.Blog"
-                        }
+                        "type": "file",
+                        "description": "File",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Title",
+                        "name": "title",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Author",
+                        "name": "author",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {}
@@ -87,20 +111,6 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {}
-            }
-        }
-    },
-    "definitions": {
-        "forms.Blog": {
-            "type": "object",
-            "properties": {
-                "author": {
-                    "type": "string",
-                    "default": "admin"
-                },
-                "title": {
-                    "type": "string"
-                }
             }
         }
     }

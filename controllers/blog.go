@@ -3,6 +3,7 @@ package controllers
 import (
 	"main/config"
 	"main/models"
+	"main/utils"
 	"net/http"
 	"strconv"
 
@@ -22,22 +23,18 @@ func GetBlogs(c *gin.Context) {
 // @Summary			Create Blogs.
 // @Description		Return blog data.
 // @Tags			Blog
-// @Param request body forms.Blog true "Request body for creating a resource"
+// @Param file formData file true "File to upload"
+// @Param title formData string true "Title data"
+// @Param author formData string true "Author data"
 // @Router			/blog [post]
 func CreateBlogs(c *gin.Context) {
-	var blog models.Blog
-	var err error
+	blog := models.Blog{}
 
-	err = c.ShouldBindJSON(&blog)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
-		return
-	}
+	blog.Title = c.PostForm("title")
+	blog.Author = c.PostForm("author")
+	blog.File = utils.UploadFile(c)
 
-	if err = config.GetDB().Create(&blog).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	config.GetDB().Create(&blog)
 	c.JSON(http.StatusCreated, gin.H{"result": blog})
 }
 
@@ -45,11 +42,13 @@ func CreateBlogs(c *gin.Context) {
 // @Description		Return new blog after update data.
 // @Tags			Blog
 // @Param id path int true "ID of models.Blog"
-// @Param request body forms.Blog true "Request body for update a resource"
+// @Param file formData file true "File"
+// @Param title formData string true "Title"
+// @Param author formData string true "Author"
 // @Router			/blog/{id} [put]
 func UpdateBlogs(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	var data, blog models.Blog
+	var blog models.Blog
 
 	r := config.GetDB().First(&blog, id)
 	if r.Error != nil {
@@ -57,13 +56,11 @@ func UpdateBlogs(c *gin.Context) {
 		return
 	}
 
-	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
-		return
-	}
+	utils.RemoveFile(blog.Title)
 
-	blog.Title = data.Title
-	blog.Author = data.Author
+	blog.Title = c.PostForm("title")
+	blog.Author = c.PostForm("author")
+	blog.File = utils.UploadFile(c)
 	config.GetDB().Save(&blog)
 
 	c.JSON(http.StatusCreated, gin.H{"result": blog})
@@ -77,7 +74,7 @@ func UpdateBlogs(c *gin.Context) {
 func DeletBlogs(c *gin.Context) {
 	id := c.Param("id")
 	var blog models.Blog
-	
+
 	r := config.GetDB().First(&blog, id)
 	if r.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": r.Error.Error()})

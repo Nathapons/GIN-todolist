@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"main/config"
 	"main/models"
 	"net/http"
@@ -76,12 +75,15 @@ func UpdateBlogs(c *gin.Context) {
 // @Param id path int true "ID of models.Blog"
 // @Router			/blog/{id} [delete]
 func DeletBlogs(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id := c.Param("id")
 	var blog models.Blog
-
-	if err := config.GetDB().First(&blog, id).Error; err != nil {
-		fmt.Println(err)
+	
+	r := config.GetDB().First(&blog, id)
+	if r.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": r.Error.Error()})
+		return
 	}
 
+	config.GetDB().Delete(&blog, id)
 	c.Status(http.StatusNoContent)
 }

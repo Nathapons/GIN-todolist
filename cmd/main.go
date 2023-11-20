@@ -13,7 +13,7 @@ import (
 // @title Blog todolist API
 // @version 1.0
 // @description Blog todolist API in Go using GIN framework
-// @host 	localhost:8000
+// @host 	localhost:7000
 // @BasePath /api/v1
 func main() {
 	envMap, err := godotenv.Read()

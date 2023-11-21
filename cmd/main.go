@@ -15,7 +15,7 @@ import (
 // @title Blog Service API
 // @version 1.0
 // @description Blog Service API in Go using GIN framework
-// @host 	localhost:7000
+// @host 	localhost:8000
 // @BasePath /api/v1
 func main() {
 	envMap, err := godotenv.Read()

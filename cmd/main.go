@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"main/config"
+	"main/middleware"
 	"main/router"
 	"os"
 
@@ -34,7 +35,7 @@ func main() {
 
 	app := gin.Default()
 
-	config.SetCors(app)
+	app.Use(middleware.CORSMiddleware())
 	config.SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
 	router.SetUpRouter(app)
 

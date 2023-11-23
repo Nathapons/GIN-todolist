@@ -34,6 +34,7 @@ func main() {
 
 	app := gin.Default()
 
+	config.SetCors(app)
 	config.SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
 	router.SetUpRouter(app)
 

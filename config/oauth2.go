@@ -16,11 +16,12 @@ func GetOauth2() (*oauth2.Config, error) {
 
 	clientId := envMap["CLIENT_ID"]
 	clientSecret := envMap["CLENT_SECRET"]
+	redirectURL := envMap["REDIRECT_URL"]
 
 	oauth2Config := &oauth2.Config{
 		ClientID:     clientId,
 		ClientSecret: clientSecret,
-		RedirectURL:  "http://localhost:8080/auth/callback",
+		RedirectURL:  redirectURL,
 		Endpoint:     github.Endpoint,
 		Scopes:       []string{"user:email"},
 	}

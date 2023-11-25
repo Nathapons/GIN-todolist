@@ -109,4 +109,35 @@ paths:
       summary: Create Users.
       tags:
       - User
+  /user/{id}:
+    delete:
+      description: Return new user.
+      parameters:
+      - description: ID of models.User
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses: {}
+      summary: Update Users.
+      tags:
+      - User
+    put:
+      description: Return new user.
+      parameters:
+      - description: ID of models.User
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User data in JSON format
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/forms.User'
+      responses: {}
+      summary: Update Users.
+      tags:
+      - User
 swagger: "2.0"

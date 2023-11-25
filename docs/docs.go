@@ -141,6 +141,51 @@ const docTemplate = `{
                 ],
                 "responses": {}
             }
+        },
+        "/user/{id}": {
+            "put": {
+                "description": "Return new user.",
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update Users.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID of models.User",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User data in JSON format",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/forms.User"
+                        }
+                    }
+                ],
+                "responses": {}
+            },
+            "delete": {
+                "description": "Return new user.",
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update Users.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID of models.User",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
         }
     },
     "definitions": {

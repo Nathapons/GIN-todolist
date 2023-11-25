@@ -10,7 +10,7 @@ func CORSMiddleware(app *gin.Engine, allowedOrigins string) {
 		Origins:        allowedOrigins,
 		Methods:        "GET, POST, PUT, DELETE, OPTIONS",
 		RequestHeaders: "Origin, Authorization, Content-Type",
-		MaxAge:         50 * 60, // 50 minutes
+		MaxAge:         50 * 60,
 	}
 	app.Use(cors.Middleware(config))
 }

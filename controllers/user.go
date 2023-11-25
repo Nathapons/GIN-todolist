@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"main/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -52,12 +51,4 @@ func UpdateUser(c *gin.Context) {
 // @Router			/user/{id} [delete]
 func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Delete user"})
-}
-
-// @Summary			Send Email.
-// @Tags			Test
-// @Router			/send-email [get]
-func TestEmail(c *gin.Context) {
-	go utils.SendEmail(c, "nuthaponm79@gmail.com", "Test send mail", "<h1>This is blog application</h1>")
-	c.String(http.StatusOK, "Email sent successfully!")
 }

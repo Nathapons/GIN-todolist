@@ -13,6 +13,4 @@ func SetUpUserRouter(app *gin.Engine) {
 	router.POST("/user", controllers.CreateUser)
 	router.PUT("/user/:id", controllers.UpdateUser)
 	router.DELETE("/user/:id", controllers.DeleteUser)
-
-	router.GET("/send-email", controllers.TestEmail)
 }

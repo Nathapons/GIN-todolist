@@ -32,10 +32,11 @@ func main() {
 	DB_USER := envMap["DB_USER"]
 	DB_PASSWORD := envMap["DB_PASSWORD"]
 	PORT := envMap["PORT"]
+	ALLOWED_ORIGINS := envMap["ALLOWED_ORIGINS"]
 
 	app := gin.Default()
 
-	middleware.CORSMiddleware(app)
+	middleware.CORSMiddleware(app, ALLOWED_ORIGINS)
 	config.SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
 	router.SetUpRouter(app)
 

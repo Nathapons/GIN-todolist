@@ -24,6 +24,7 @@ func SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT string) {
 
 func migrateDB(database *gorm.DB) {
 	database.AutoMigrate(models.Blog{})
+	database.AutoMigrate(models.User{})
 }
 
 func GetDB() *gorm.DB {

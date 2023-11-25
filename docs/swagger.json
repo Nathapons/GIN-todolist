@@ -106,6 +106,57 @@
                 ],
                 "responses": {}
             }
+        },
+        "/user": {
+            "get": {
+                "description": "Return users.",
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Users.",
+                "responses": {}
+            },
+            "post": {
+                "description": "Return user.",
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create Users.",
+                "parameters": [
+                    {
+                        "description": "User data in JSON format",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/forms.User"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "forms.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
         }
     }
 }

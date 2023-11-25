@@ -1,4 +1,18 @@
 basePath: /api/v1
+definitions:
+  forms.User:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 host: localhost:8000
 info:
   contact: {}
@@ -75,4 +89,24 @@ paths:
       summary: Update Blogs.
       tags:
       - Blog
+  /user:
+    get:
+      description: Return users.
+      responses: {}
+      summary: Get Users.
+      tags:
+      - User
+    post:
+      description: Return user.
+      parameters:
+      - description: User data in JSON format
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/forms.User'
+      responses: {}
+      summary: Create Users.
+      tags:
+      - User
 swagger: "2.0"

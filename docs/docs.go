@@ -113,6 +113,15 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/send-email": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Send Email.",
+                "responses": {}
+            }
+        },
         "/user": {
             "get": {
                 "description": "Return users.",

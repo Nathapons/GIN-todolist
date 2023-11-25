@@ -89,6 +89,12 @@ paths:
       summary: Update Blogs.
       tags:
       - Blog
+  /send-email:
+    get:
+      responses: {}
+      summary: Send Email.
+      tags:
+      - Test
   /user:
     get:
       description: Return users.

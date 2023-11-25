@@ -35,7 +35,7 @@ func main() {
 
 	app := gin.Default()
 
-	app.Use(middleware.CORSMiddleware())
+	middleware.CORSMiddleware(app)
 	config.SetDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT)
 	router.SetUpRouter(app)
 

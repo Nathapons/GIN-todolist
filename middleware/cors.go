@@ -2,19 +2,15 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
+	cors "github.com/itsjamie/gin-cors"
 )
 
-func CORSMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(200)
-			return
-		}
-
-		c.Next()
+func CORSMiddleware(app *gin.Engine) {
+	config := cors.Config{
+		Origins:        "*",
+		Methods:        "GET, POST, PUT, DELETE, OPTIONS",
+		RequestHeaders: "Origin, Authorization, Content-Type",
+		MaxAge:         50 * 60, // 50 minutes
 	}
+	app.Use(cors.Middleware(config))
 }

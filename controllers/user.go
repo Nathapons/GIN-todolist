@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gopkg.in/gomail.v2"
 )
 
 // @Summary			Get Users.
@@ -12,16 +11,6 @@ import (
 // @Tags			User
 // @Router			/user [get]
 func GetUsers(c *gin.Context) {
-	m := gomail.NewMessage()
-	m.SetHeader("From", "nuthaponm79@gmail.com")
-	m.SetHeader("To", "nuthaponm79@gmail.com")
-	m.SetHeader("Subject", "Hello!")
-	m.SetBody("text/html", "Hello <b>Bob</b> and <i>Cora</i>!")
-
-	d := gomail.NewDialer("smtp.example.com", 587, "user", "123456")
-	if err := d.DialAndSend(m); err != nil {
-		panic(err)
-	}
 	c.JSON(http.StatusOK, gin.H{"result": "ok"})
 }
 

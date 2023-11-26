@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"fmt"
 	"main/config"
 	"main/forms"
 	"main/models"
 	"main/utils"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -72,8 +72,26 @@ func CreateUser(c *gin.Context) {
 // @Param request body forms.User true "User data in JSON format"
 // @Router			/user/{id} [put]
 func UpdateUser(c *gin.Context) {
-	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{"message": fmt.Sprintf("Update user id = %s", id)})
+	id, _ := strconv.Atoi(c.Param("id"))
+	var userData forms.UserDetail
+	var myUser models.User
+	var err error
+
+	if err = c.ShouldBindJSON(&userData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	if err = config.GetDB().First(&myUser, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err})
+		return
+	}
+
+	myUser.FirstName = userData.FirstName
+	myUser.LastName = userData.LastName
+	config.GetDB().Save(&myUser)
+
+	c.JSON(http.StatusOK, gin.H{"user": myUser})
 }
 
 // @Summary			Update Users.
@@ -82,5 +100,7 @@ func UpdateUser(c *gin.Context) {
 // @Param id path int true "ID of models.User"
 // @Router			/user/{id} [delete]
 func DeleteUser(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Delete user"})
+	id, _ := strconv.Atoi(c.Param("id"))
+	config.GetDB().Delete(&models.User{}, id)
+	c.Status(http.StatusNoContent)
 }

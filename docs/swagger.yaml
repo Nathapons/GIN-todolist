@@ -6,6 +6,9 @@ definitions:
         type: string
       first_name:
         type: string
+      gender:
+        default: male
+        type: string
       last_name:
         type: string
       password:
@@ -120,6 +123,18 @@ paths:
         type: integer
       responses: {}
       summary: Update Users.
+      tags:
+      - User
+    get:
+      description: Return users.
+      parameters:
+      - description: ID of models.User
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses: {}
+      summary: Get Users.
       tags:
       - User
     put:

@@ -143,6 +143,23 @@ const docTemplate = `{
             }
         },
         "/user/{id}": {
+            "get": {
+                "description": "Return users.",
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Users.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID of models.User",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
             "put": {
                 "description": "Return new user.",
                 "tags": [
@@ -197,6 +214,10 @@ const docTemplate = `{
                 },
                 "first_name": {
                     "type": "string"
+                },
+                "gender": {
+                    "type": "string",
+                    "default": "male"
                 },
                 "last_name": {
                     "type": "string"

@@ -3,7 +3,6 @@ package controllers
 import (
 	"main/config"
 	"main/forms"
-	"main/middleware"
 	"main/models"
 	"main/utils"
 	"net/http"
@@ -29,7 +28,7 @@ func Login(c *gin.Context) {
 		} else if user.IsActive {
 			c.JSON(http.StatusUnauthorized, gin.H{"result": "unauthorized", "error": "user is not active"})
 		} else {
-			token := middleware.JwtSign(queryUser)
+			token := utils.JwtSign(queryUser)
 			c.JSON(http.StatusOK, gin.H{"message": "login complete", "token": token})
 		}
 	} else {

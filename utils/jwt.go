@@ -1,4 +1,4 @@
-package middleware
+package utils
 
 import (
 	"main/models"

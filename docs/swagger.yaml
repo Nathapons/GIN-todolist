@@ -113,6 +113,15 @@ paths:
       summary: Update Blogs.
       tags:
       - Blog
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Perform user login
+      produces:
+      - application/json
+      responses: {}
+      summary: Login
   /user:
     get:
       description: Return users.

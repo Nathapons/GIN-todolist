@@ -113,6 +113,19 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/login": {
+            "post": {
+                "description": "Perform user login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Login",
+                "responses": {}
+            }
+        },
         "/user": {
             "get": {
                 "description": "Return users.",

@@ -8,4 +8,5 @@ func SetUpRouter(app *gin.Engine) {
 	SetUpBlogRouter(app)
 	SetUpSwaggerRouter(app)
 	SetUpUserRouter(app)
+	SetupAuthRouter(app)
 }

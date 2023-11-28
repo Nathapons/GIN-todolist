@@ -10,3 +10,8 @@ type User struct {
 	Gender    string `json:"gender" default:"male"`
 	IsActive  bool   `json:"is_active" default:"false"`
 }
+
+
+func (user User) GetFullName() string {
+	return user.FirstName + " " + user.LastName
+}

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"main/config"
 	"main/forms"
 	"main/models"
@@ -38,6 +39,8 @@ func GetUser(c *gin.Context) {
 // @Description		Return user.
 // @Tags			User
 // @Param request body forms.User true "User data in JSON format"
+// @Success 201 {object} models.User "Successful response"
+// Failure 400 {object} gin.H  "error response"
 // @Router			/user [post]
 func CreateUser(c *gin.Context) {
 	var user models.User
@@ -53,7 +56,7 @@ func CreateUser(c *gin.Context) {
 	}
 
 	if user.Username == user.Password {
-		c.JSON(http.StatusBadGateway, gin.H{"error": "Username is not same password"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Username is not same password"})
 		return
 	}
 
@@ -61,7 +64,10 @@ func CreateUser(c *gin.Context) {
 	user.Password = password
 
 	config.GetDB().Save(&user)
-	go utils.SendEmail(c, user.Email, "Create User", "<h1>Create user complete</h1>")
+	userId := fmt.Sprintf("%d", user.Id)
+	activationLink := fmt.Sprintf("http://localhost:8000/api/v1/user/activate/%s", userId)
+	body := fmt.Sprintf("<h1>Create user complete</h1><p><a href=\"%s\">Click here</a> to activate</p>", activationLink)
+	go utils.SendEmail(c, user.Email, "Create User", body)
 	c.JSON(http.StatusCreated, gin.H{"user": user})
 }
 
@@ -103,4 +109,17 @@ func DeleteUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	config.GetDB().Delete(&models.User{}, id)
 	c.Status(http.StatusNoContent)
+}
+
+
+func ActiveUser(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var user models.User
+	config.GetDB().First(&user, id)
+	user.IsActive = true
+	config.GetDB().Save(&user)
+
+	htmlContent := fmt.Sprintf("<h1>Active user %s complete!</h1>", user.GetFullName())
+	c.Header("Content-Type", "text/html; charset=utf-8")
+	c.String(http.StatusOK, htmlContent)
 }

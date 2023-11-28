@@ -16,6 +16,27 @@ definitions:
       username:
         type: string
     type: object
+  models.User:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        default: male
+        type: string
+      id:
+        type: integer
+      is_active:
+        default: false
+        type: boolean
+      last_name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 host: localhost:8000
 info:
   contact: {}
@@ -108,7 +129,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/forms.User'
-      responses: {}
+      responses:
+        "201":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/models.User'
       summary: Create Users.
       tags:
       - User

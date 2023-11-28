@@ -15,6 +15,7 @@ import (
 // @Description Perform user login
 // @Accept json
 // @Produce json
+// @Param request body forms.Login true "User data in JSON format"
 // @Router /login [post]
 func Login(c *gin.Context) {
 	var form forms.LoginForm
